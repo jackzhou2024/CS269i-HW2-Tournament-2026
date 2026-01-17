@@ -8,6 +8,13 @@ Nicky Case's "The Evolution of Trust" is also super fascinating, but it's not ne
 
 ---
 
+## Important Difference from the Model Discussed in Problem 2
+
+At every turn and for each player **independently**, there is a **5% (0.05) chance** that the player’s intended action is overridden and executed as **Defect**, regardless of the strategy’s output.  
+This is intended to model occasional loss of network connection in real world.
+
+---
+
 
 
 ## How It Works
@@ -45,9 +52,13 @@ def strategy(history, avgPreviousScore, avgPreviousCoop, memory):
     return moveChoice, memory
 ```
 
-- `history`: A 2×n NumPy array, where `n` is the number of turns in this matchup so far.  
-  - `history[0]` contains **your moves**.
-  - `history[1]` contains **your opponent’s moves**.
+- `history`: A 2×n NumPy array, where `n` is the number of turns played so far in this matchup.
+  - `history[0]` contains **your executed moves**
+  - `history[1]` contains **your opponent’s executed moves**
+
+  ⚠️ **Important:** the entries in `history` are the *actual actions taken in the game*, **after** the random override described above is applied.  
+  They may differ from the actions originally returned by either strategy.
+
   
   Example:
   ```
@@ -78,6 +89,7 @@ def strategy(history, avgPreviousScore, avgPreviousCoop, memory):
 ## Simulation Details
 
 - **Each matchup runs for 200 turns.**
+- At every turn and for each player **independently**, there is a **5% (0.05) chance** that the player’s intended action is overridden and executed as **Defect**.
 
 ---
 
