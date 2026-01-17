@@ -79,8 +79,10 @@ def runRound(pair, scoreKeeper, coopKeeper, roundKeeper):
     for turn in range(LENGTH_OF_GAME):
         playerAmove, memoryA = moduleA.strategy(getVisibleHistory(history,0,turn), avgScoreB, avgCoopB, memoryA)
         playerBmove, memoryB = moduleB.strategy(getVisibleHistory(history,1,turn), avgScoreA, avgCoopA, memoryB)
-        history[0, turn] = strategyMove(playerAmove)
-        history[1, turn] = strategyMove(playerBmove)
+        moveA = strategyMove(playerAmove)
+        moveB = strategyMove(playerBmove)
+        history[0, turn] = 0 if random.random() < 0.05 else moveA
+        history[1, turn] = 0 if random.random() < 0.05 else moveB
         
     return history
     
